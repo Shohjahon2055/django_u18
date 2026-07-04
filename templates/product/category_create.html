@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>CAT create </h2>
+<form method="post">
+    {% csrf_token %}
+    <p>{{ form.as_p }}</p>
+    <button type="submit">save</button>
+</form>
+
+{% endblock %}
