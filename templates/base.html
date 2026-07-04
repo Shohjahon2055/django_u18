@@ -1,0 +1,264 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OLX Clone{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block css %}{% endblock %}
+</head>
+
+<body class="bg-light">
+
+<!-- ================= Navbar ================= -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold fs-3 text-primary" href="/">
+            OLX Clone
+        </a>
+
+        <!-- Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Search -->
+            <form class="d-flex mx-auto w-50" method="GET" action="">
+                <input class="form-control me-2"
+                       type="search"
+                       name="q"
+                       placeholder="Nima qidiryapsiz?">
+
+                <button class="btn btn-primary">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <!-- Menu -->
+            <ul class="navbar-nav ms-auto align-items-center">
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-heart"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-chat-dots"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           data-bs-toggle="dropdown">
+
+                            <i class="bi bi-person-circle"></i>
+                            {{ user.username }}
+
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Profil
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Mening e'lonlarim
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <a class="dropdown-item text-danger" href="#">
+                                    Chiqish
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item me-2">
+                        <a href="#" class="btn btn-outline-primary">
+                            Kirish
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-primary">
+                            Ro'yxatdan o'tish
+                        </a>
+                    </li>
+
+                {% endif %}
+
+                <li class="nav-item ms-3">
+
+                    <a href="#"
+                       class="btn btn-success fw-bold">
+
+                        <i class="bi bi-plus-circle"></i>
+                        E'lon berish
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+<!-- ================= Categories ================= -->
+
+<div class="bg-white border-bottom">
+
+    <div class="container py-2">
+
+        <div class="d-flex gap-4 overflow-auto">
+
+            <a href="#" class="text-decoration-none text-dark">🚗 Avto</a>
+            <a href="#" class="text-decoration-none text-dark">🏠 Ko'chmas mulk</a>
+            <a href="#" class="text-decoration-none text-dark">📱 Telefonlar</a>
+            <a href="#" class="text-decoration-none text-dark">💻 Kompyuter</a>
+            <a href="#" class="text-decoration-none text-dark">👔 Ish</a>
+            <a href="#" class="text-decoration-none text-dark">👶 Bolalar</a>
+            <a href="#" class="text-decoration-none text-dark">🐶 Hayvonlar</a>
+            <a href="#" class="text-decoration-none text-dark">🛠 Xizmatlar</a>
+            <a href="#" class="text-decoration-none text-dark">🎮 Elektronika</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= Messages ================= -->
+
+<div class="container mt-3">
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button class="btn-close"
+                        data-bs-dismiss="alert"></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+<!-- ================= Main ================= -->
+
+<main class="container py-4">
+
+    {% block content %}
+
+    {% endblock %}
+
+</main>
+
+<!-- ================= Footer ================= -->
+
+<footer class="bg-dark text-white mt-5">
+
+    <div class="container py-5">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <h5>OLX Clone</h5>
+
+                <p class="text-secondary">
+                    Xarid qiling, soting va yangi imkoniyatlarni toping.
+                </p>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5>Bo'limlar</h5>
+
+                <ul class="list-unstyled">
+
+                    <li><a href="#" class="text-secondary text-decoration-none">Avto</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Uy-joy</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Elektronika</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h5>Bog'lanish</h5>
+
+                <p class="text-secondary">
+                    Email: info@example.com
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center text-secondary">
+
+            © 2026 OLX Clone. Barcha huquqlar himoyalangan.
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block js %}
+
+{% endblock %}
+
+</body>
+</html>
