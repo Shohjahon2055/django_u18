@@ -9,9 +9,14 @@ from .models import Product, Category
 def index_list(request):
     categories=Category.objects.all()
     products=Product.objects.all()
+    count_product=Product.objects.all().count()
+    price_high=Product.objects.filter(price__lte=500).order_by('price')
+
     context={
         'products':products,
-        'categories':categories
+        'categories':categories,
+        'count_product':count_product,
+        'price_high':price_high
 
     }
     return render(request,'product/index.html',context)
