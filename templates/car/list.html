@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>CARS</h2>
+
+{% for car in cars %}
+    <p><strong>Model:</strong> {{ car.model }}</p>
+    <p><strong>Price:</strong> {{ car.price }}</p>
+    <p><strong>Description:</strong> {{ car.description }}</p>
+    <hr>
+{% endfor %}
+
+<h2>PHONES</h2>
+
+{% for phone in phones %}
+    <p><strong>Brand:</strong> {{ phone.brand }}</p>
+    <p><strong>Model:</strong> {{ phone.model }}</p>
+    <p><strong>Price:</strong> {{ phone.price }}</p>
+    <p><strong>Description:</strong> {{ phone.description }}</p>
+    <hr>
+{% empty %}
+    <p>Hozircha telefonlar mavjud emas.</p>
+{% endfor %}
+
+{% endblock %}
