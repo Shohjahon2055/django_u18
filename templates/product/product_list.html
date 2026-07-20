@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h1>Mahsulotlar</h1>
+
+
+    <form method="get">
+
+        <input type="text" name="q" placeholder="Mahsulot nomi..." value="{{ query }}">
+
+        <button type="submit">Qidirish</button>
+
+    </form>
+
+
+    <hr>
+
+
+    {% for product in products %}
+
+        <h3>{{ product.name }}</h3>
+
+        <p>{{ product.description }}</p>
+
+        <p>{{ product.price }}</p>
+
+        <p>{{ product.category.name }}</p>
+
+        <hr>
+
+    {% empty %}
+
+        <p>Mahsulot topilmadi</p>
+
+    {% endfor %}
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+{% endblock %}

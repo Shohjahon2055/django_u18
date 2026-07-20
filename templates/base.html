@@ -93,7 +93,7 @@
                             <li><hr class="dropdown-divider"></li>
 
                             <li>
-                                <a class="dropdown-item text-danger" href="#">
+                                <a class="dropdown-item text-danger" href="{% url 'logout' %}">
                                     Chiqish
                                 </a>
                             </li>
@@ -103,13 +103,13 @@
                 {% else %}
 
                     <li class="nav-item me-2">
-                        <a href="#" class="btn btn-outline-primary">
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">
                             Kirish
                         </a>
                     </li>
 
                     <li class="nav-item me-2">
-                        <a href="#" class="btn btn-primary">
+                        <a href="{% url 'register' %}" class="btn btn-primary">
                             Ro'yxatdan o'tish
                         </a>
                     </li>

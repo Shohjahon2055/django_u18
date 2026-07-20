@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">🛍 Mahsulotlar ro'yxati</h2>
+
+    <form method="get" class="card shadow-sm p-3 mb-4">
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <label class="form-label">Mahsulot nomi</label>
+                <input
+                        type="text"
+                        name="q"
+                        class="form-control"
+                        placeholder="Qidirish..."
+                        value="{{ query }}">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Kategoriya</label>
+                <select name="category" class="form-select">
+                    <option value="">Barchasi</option>
+
+                    {% for category in categories %}
+                        <option value="{{ category.id }}"
+                                {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Min narx</label>
+                <input
+                        type="number"
+                        class="form-control"
+                        name="min_price"
+                        value="{{ min_price }}">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Max narx</label>
+                <input
+                        type="number"
+                        class="form-control"
+                        name="max_price"
+                        value="{{ max_price }}">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Holati</label>
+                <select name="available" class="form-select">
+                    <option value="">Hammasi</option>
+
+                    <option value="true"
+                        {% if available == 'true' %}selected{% endif %}>
+                        Mavjud
+                    </option>
+
+                    <option value="false"
+                        {% if available == 'false' %}selected{% endif %}>
+                        Tugagan
+                    </option>
+
+                </select>
+            </div>
+
+        </div>
+
+        <div class="mt-3 text-end">
+            <button class="btn btn-primary">
+                🔍 Filtrlash
+            </button>
+
+            <a href="{% url 'product-list' %}" class="btn btn-secondary">
+                Tozalash
+            </a>
+        </div>
+
+    </form>
+
+    <div class="row">
+
+        {% for product in products %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card shadow h-100">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         class="card-img-top"
+                         style="height:250px; object-fit:cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/500x300?text=No+Image"
+                         class="card-img-top">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h4>{{ product.name }}</h4>
+
+                    <span class="badge bg-info">
+                        {{ product.category.name }}
+                    </span>
+
+                    <p class="mt-3">
+                        {{ product.description|truncatewords:20 }}
+                    </p>
+
+                    <h5 class="text-success">
+                        {{ product.price }} so'm
+                    </h5>
+
+                    {% if product.is_available %}
+                        <span class="badge bg-success">
+                            Mavjud
+                        </span>
+                    {% else %}
+                        <span class="badge bg-danger">
+                            Tugagan
+                        </span>
+                    {% endif %}
+
+                </div>
+
+                <div class="card-footer bg-white">
+
+                    <a href="#" class="btn btn-outline-primary w-100">
+                        Batafsil
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+            <div class="alert alert-warning text-center">
+                <h4>😔 Hech qanday mahsulot topilmadi.</h4>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
