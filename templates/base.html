@@ -75,6 +75,7 @@
                            data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle"></i>
                             {{ user.username }}
+                            {{ user.role }}
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -117,7 +118,7 @@
                 {% endif %}
 
                 <!-- Car Create -->
-                <li class="nav-item ms-3">
+{% if request.user.is_authenticated and request.user.role == "Admin" %}                <li class="nav-item ms-3">
                     <a href="{% url 'create' %}" class="btn btn-success fw-bold">
                         <i class="bi bi-plus-circle"></i>
                         Car create
@@ -131,6 +132,18 @@
                         Phone create
                     </a>
                 </li>
+
+                <!-- Role Change -->
+<!--                {% if user.is_authenticated %}-->
+                <li class="nav-item ms-2">
+                    <a href="{% url 'role_change' %}" class="btn btn-outline-info fw-bold d-flex align-items-center gap-1">
+                        <i class="bi bi-arrow-repeat"></i>
+                        Rolni o'zgartirish
+                    </a>
+                </li>
+                {% endif %}
+                {% endif %}
+
 
             </ul>
 

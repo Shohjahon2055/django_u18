@@ -1,5 +1,5 @@
 from django import forms
-from accounts.models import CustomUser
+from accounts.models import CustomUser,Role
 
 
 class RegisterForm(forms.ModelForm):
@@ -29,3 +29,12 @@ class RegisterForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username=forms.CharField(max_length=150)
     password=forms.CharField(max_length=150)
+
+class RoleForm(forms.Form):
+    username=forms.ModelChoiceField(
+        queryset=CustomUser.objects.all(),
+        empty_label="-- User tanlang --"
+    )
+    role=forms.ChoiceField(
+        choices=Role
+    )

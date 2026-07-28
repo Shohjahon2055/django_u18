@@ -91,3 +91,8 @@ class PhoneForm(forms.Form):
 
         )
 
+
+class CarEditForm(forms.ModelForm):
+    class Meta:
+        model=Car
+        fields='__all__'

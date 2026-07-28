@@ -1,8 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout, authenticate
+from django.contrib.auth import logout, authenticate,login
+from .forms import LoginForm, RoleForm
 
 from accounts.forms import RegisterForm
+from .models import CustomUser
 
 
 # Create your views here.
@@ -42,3 +44,23 @@ def login_view(ruquest):
 def logout_view(request):
     logout(request)
     return redirect("login")
+
+
+
+
+# role berish
+
+def role_change(request):
+    if request.method=='POST':
+        form=RoleForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            role=form.cleaned_data.get('role')
+            user=CustomUser.objects.filter(username=username.username).first()
+            if user:
+                user.role=role
+                user.save()
+                return redirect("list")
+    else:
+        form=RoleForm()
+    return render(request,"accounts/role.html",{'form':form})

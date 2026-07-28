@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
-from car.forms import CarForm, PhoneForm
+from accounts.permissions import login_required, check_admin, check_manager,check_manager_or_admin
+from car.forms import CarForm, PhoneForm,CarEditForm
 from car.models import Car,Phone
 
 
@@ -15,6 +16,7 @@ def get_cars(request):
      return render(request,'car/list.html',context)
 
 
+@check_admin
 def create_car(request):
     if request.method=='POST':
         form=CarForm(request.POST)
@@ -41,4 +43,33 @@ def create_phone(request):
             'form':form
         }
         return render(request,'car/create_phone.html',context)
+@login_required
+def detail_car(request,pk):
+    car=Car.objects.get(pk=pk)
+    context={
+        "car":car
+    }
+    return render(request,"car/detail.html",context)
+
+@check_manager_or_admin
+def edit_car(request,pk):
+    car = Car.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = CarEditForm(request.POST,instance=car)
+        if form.is_valid():
+            form.save()
+            return redirect("list")
+    else:
+        form=CarEditForm(instance=car)
+
+    return render(request, 'car/create.html', {"form":form})
+@check_admin
+def delete_car(request,pk):
+    car = Car.objects.get(pk=pk)
+    if request.method == 'POST':
+        car.delete()
+        return redirect("list")
+    else:
+        return render(request,'car/delete.html',{"car":car})
+
 

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Rostanham ham {{ car.model }} ni o'chirmoqchimisiz </p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">okey</button>
+</form>
+
+{% endblock %}
