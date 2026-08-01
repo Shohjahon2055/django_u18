@@ -5,6 +5,8 @@ from .forms import LoginForm, RoleForm
 
 from accounts.forms import RegisterForm
 from .models import CustomUser
+from .utils import send_simple_email
+from .utils import send_html_email
 
 
 # Create your views here.
@@ -17,6 +19,10 @@ def register_user(request):
             user=form.save()
             user=authenticate(username=user.username,password=password)
             if user:
+                username=user.username
+                user_email=user.email
+                # send_simple_email(user_email)
+                send_html_email(user_email,username)
                 login(request,user)
                 return redirect('list')
             return redirect('list')
