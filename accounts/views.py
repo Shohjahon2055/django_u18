@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate,login
-from .forms import LoginForm, RoleForm
+from .forms import LoginForm, RoleForm, ForgetPasswordForm
 
 from accounts.forms import RegisterForm
 from .models import CustomUser
@@ -70,3 +70,16 @@ def role_change(request):
     else:
         form=RoleForm()
     return render(request,"accounts/role.html",{'form':form})
+
+
+
+def forget_password_post(request):
+    if request.method=='POST':
+        form=ForgetPasswordForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            email=form.cleaned_data.get('email')
+
+
+    form=ForgetPasswordForm()
+    return render(request,'accounts/forget.html',{'form':form})

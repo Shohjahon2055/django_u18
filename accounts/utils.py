@@ -1,7 +1,8 @@
 from config.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
-
+from django.utils import timezone
+from datetime import timedelta
 
 def send_simple_email(user_email):
     send_mail(
@@ -53,3 +54,10 @@ def send_html_email(user_email, user_name):
 
     email.attach_alternative(html_content, "text/html")
     email.send(fail_silently=False)
+def get_code():
+    import random
+    data=random.randint(100000,999999)
+    return data
+
+def get_expiry_date():
+    return timezone.now() + timedelta(minutes=2)

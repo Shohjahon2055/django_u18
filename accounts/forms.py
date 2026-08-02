@@ -38,3 +38,7 @@ class RoleForm(forms.Form):
     role=forms.ChoiceField(
         choices=Role
     )
+
+class ForgetPasswordForm(forms.Form):
+    username=forms.CharField(max_length=50)
+    email=forms.CharField(max_length=50)
