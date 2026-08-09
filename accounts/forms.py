@@ -42,3 +42,9 @@ class RoleForm(forms.Form):
 class ForgetPasswordForm(forms.Form):
     username=forms.CharField(max_length=50)
     email=forms.CharField(max_length=50)
+
+class DonePasswordForm(forms.Form):
+    code=forms.CharField(max_length=50)
+    password=forms.CharField(max_length=50)
+    password2=forms.CharField(max_length=50)
+

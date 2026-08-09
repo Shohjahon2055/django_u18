@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ about.title }}</h1>
+<p>{{ about.description }}</p>
+
+<p>Likes: {{ about.likes.count }}</p>
+
+{% if user.is_authenticated %}
+    <form method="POST" action="{% url 'toggle_like' about.id %}">
+        {% csrf_token %}
+        {% if user in about.likes.all %}
+            <button type="submit">Unlike</button>
+        {% else %}
+            <button type="submit">Like</button>
+        {% endif %}
+    </form>
+{% else %}
+    <p>You must be logged in to like this post.</p>
+{% endif %}
+
+{% endblock %}

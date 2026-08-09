@@ -54,6 +54,7 @@
 
             <!-- Menu -->
             <ul class="navbar-nav ms-auto align-items-center">
+                <li><a href="{% url 'list-about' %}">About</a></li>
 
                 {% if user.is_authenticated %}
 
@@ -114,6 +115,7 @@
                             Ro'yxatdan o'tish
                         </a>
                     </li>
+
 
                 {% endif %}
 

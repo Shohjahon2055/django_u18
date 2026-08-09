@@ -18,18 +18,19 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
 
-def send_html_email(user_email, user_name):
+def send_html_email(user_email, user_name,code):
     subject = "HTML email sinovi"
 
     context = {
         "subject": subject,
         "user_name": user_name,
+        "code": code,
         "message": (
             "Sizga muhim ma’lumot yuborildi. "
             "Batafsil tanishish uchun quyidagi tugmani bosing."
         ),
         "button_text": "Batafsil ma’lumot",
-        "button_url": "https://ustudy.uz",
+        "button_url": f"http://127.0.0.1:8000/accounts/done/password/?username={user_name}",
     }
 
     html_content = render_to_string(
@@ -41,8 +42,7 @@ def send_html_email(user_email, user_name):
         f"Salom, {user_name}!\n\n"
         f"{context['message']}\n\n"
         f"Havola: {context['button_url']}\n\n"
-        "Hurmat bilan,\n"
-        "Ustudy IT Akademiyasi"
+        "{code}"
     )
 
     email = EmailMultiAlternatives(
@@ -54,6 +54,8 @@ def send_html_email(user_email, user_name):
 
     email.attach_alternative(html_content, "text/html")
     email.send(fail_silently=False)
+
+
 def get_code():
     import random
     data=random.randint(100000,999999)

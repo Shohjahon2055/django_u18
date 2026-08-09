@@ -3,7 +3,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from accounts.utils import get_code,get_expiry_date
+from accounts.utils import get_expiry_date, get_code
 
 
 class Role(models.TextChoices):

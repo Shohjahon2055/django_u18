@@ -1,5 +1,5 @@
 from django import forms
-from .models import Car,Phone
+from .models import Car,Phone,About
 class CarForm(forms.Form):
     model=forms.CharField(widget=forms.TextInput(attrs={
         'class':'form-control',
@@ -96,3 +96,9 @@ class CarEditForm(forms.ModelForm):
     class Meta:
         model=Car
         fields='__all__'
+
+
+class AboutForm(forms.ModelForm):
+    class Meta:
+        model = About
+        fields = '__all__'
