@@ -9,6 +9,7 @@
 {% if user.is_authenticated %}
     <form method="POST" action="{% url 'toggle_like' about.id %}">
         {% csrf_token %}
+
         {% if user in about.likes.all %}
             <button type="submit">Unlike</button>
         {% else %}
@@ -18,5 +19,15 @@
 {% else %}
     <p>You must be logged in to like this post.</p>
 {% endif %}
+
+<br>
+
+<a href="{% url 'update-about' about.id %}">
+    <button type="button">Update About</button>
+</a>
+
+<a href="{% url 'delete-about' about.id %}">
+    <button type="button">Delete About</button>
+</a>
 
 {% endblock %}

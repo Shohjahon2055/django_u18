@@ -162,8 +162,8 @@ class AboutDeleteView(DeleteView):
 # excel
 
 def exprort_about_to_excel(request):
-    worbook = openpyxl.Workbook()
-    sheet = worbook.active
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
     sheet.title = "About"
 
     sheet.append([
@@ -179,9 +179,12 @@ def exprort_about_to_excel(request):
             about.description,
         ])
 
-        response = HttpResponse(
-            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        )
-        response['Content-Disposition'] = 'attachment; filename="About.xlsx"'
-        workbook.save(response)
-        return response
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+
+    response['Content-Disposition'] = 'attachment; filename="About_Excel.xlsx"'
+
+    workbook.save(response)
+
+    return response

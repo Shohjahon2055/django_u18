@@ -101,4 +101,4 @@ class CarEditForm(forms.ModelForm):
 class AboutForm(forms.ModelForm):
     class Meta:
         model = About
-        fields = '__all__'
+        exclude = ['likes']
